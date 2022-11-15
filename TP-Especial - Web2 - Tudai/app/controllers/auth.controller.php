@@ -16,9 +16,10 @@ class AuthController {
     }
 
     public function validateUser() {
+        //if (!empty($_POST['email']) && (!empty($_POST['password'])) <- no lo incluyo porque en el form los indique como required, necesariamente van a estar
         // toma los datos del form
         $email = $_POST['email'];
-        $password = $_POST['password'];      
+        $password = ($_POST['password']);      
     
         // busco el usuario por email
         $user = $this->model->getUserByEmail($email);
@@ -26,7 +27,7 @@ class AuthController {
         // verifico que el usuario existe y que las contraseñas son iguales
         if ($user && password_verify($password, $user->password)) {
 
-            // inicio una session para este usuario
+            // inicio una session para este usuario - guardo datos en el arreglo de sesión
             session_start();
             $_SESSION['USER_ID'] = $user->id_user;
             $_SESSION['USER_EMAIL'] = $user->email;
