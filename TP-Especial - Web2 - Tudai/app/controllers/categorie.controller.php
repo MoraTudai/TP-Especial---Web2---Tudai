@@ -25,6 +25,10 @@ class CategorieController {
         $this->view->showCategories($categorias);
     }
 
+    //----------------------------------------------------------
+    // -------- Funciones con barrera de identificación --------
+    //----------------------------------------------------------
+
     function insertCategorie() {
 
         $this->authHelper->checkLoggedIn();
@@ -40,7 +44,7 @@ class CategorieController {
 
         $this->model->insertCategorie($nombre);
 
-        header("Location: " . BASE_URL); 
+        header("Location: " . BASE_URL . "categorieTable.tpl"); 
     }
 
     //edición de productos en 2 pasos
@@ -66,6 +70,7 @@ class CategorieController {
     function deleteCategorie($id_categorie) {
         $this->authHelper->checkLoggedIn();
         $this->model->deleteCategorie($id_categorie);
-        header("Location: " . BASE_URL . "listCategorie");    }
+        header("Location: " . BASE_URL . "categorieTable.tpl");    }
 
 }
+
