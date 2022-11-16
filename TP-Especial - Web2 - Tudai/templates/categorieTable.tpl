@@ -10,9 +10,11 @@
     {foreach from=$categorias item=$categoria}
     <tr>
         <input type="hidden" name="id" value="{$id_categorie}">
-        <td> <span> <b>{$categoria->nombre|truncate:25}</b> </span> </td>
-        <td><a href='showEditCategorie/{$categoria->id_categorie}' type="submit" class="btn btn-warning">Modificar</a></td>
-        <td><a href='deleteCategorie/{$categoria->id_categorie}' type="submit" class="btn btn-danger">Eliminar</a></td>
+        <td><a href='showByCategorie/{$categoria->id_categorie}' type="submit" class="btn btn-light"><span> <b>{$categoria->nombre|truncate:25}</b> </span></a></td>
+        {if isset($smarty.session.USER_ID)}
+            <td><a href='showEditCategorie/{$categoria->id_categorie}' type="submit" class="btn btn-warning">Modificar</a></td>
+            <td><a href='deleteCategorie/{$categoria->id_categorie}' type="submit" class="btn btn-danger">Eliminar</a></td>
+        {/if}  
     </tr>
     {/foreach}
 

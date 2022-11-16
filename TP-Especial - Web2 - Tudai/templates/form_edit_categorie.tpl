@@ -1,5 +1,3 @@
-{include file="header.tpl"}
-
 <!-- formulario de modificación de categorías -->
 
 <div><h3>Formulario de Modificación de Categorías</h3></div>

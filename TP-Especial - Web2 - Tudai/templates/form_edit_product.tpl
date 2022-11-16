@@ -1,5 +1,3 @@
-{include file="header.tpl"}
-
 <!-- formulario de modificación de productos -->
 
 <div><h3>Formulario de Modificación de Productos</h3></div>
@@ -7,7 +5,15 @@
     
 {*comentarios en tpl*}
     <div class="form-group">
-        <input type="hidden" name="id" value="{$id_product}">  
+    <label>Categoría</label>
+        <select name="id_categorie_fk" id="id_categorie_fk" class="form-control">
+        {foreach from = $categorias item = $categoria}
+            <option value="{$categoria->id_categorie}">{$categoria->nombre}</option>
+        {/foreach}
+        </select>
+    </div>    
+    <div class="form-group">
+        <input type="hidden" name="id" value="{$id}">  
         <label>Producto</label>
         <input name="name_product" id="name_product" type="text" class="form-control"/>
         <label>Tamaño</label>
@@ -16,16 +22,10 @@
         <input name="color" id="color" type="text" class="form-control"/>
         <label>Precio</label>
         <input name="price" id="price" type="text" class="form-control"/>
+        <label>Descripción</label>
+        <input name="description" id="description" type="text" class="form-control"/>
     </div>        
-    <div class="form-group">
-        <label>Categoría</label>
-            <select name="id_categorie_fk" id="id_categorie_fk" class="form-control">
-            <option> -- Seleccione -- </option>
-            <option value = "1">Pinturas</option>
-            <option value = "2">Preparación</option>
-            <option value = "3">Protección</option>
-            </select>
-    </div>
+    
     
     <button type="submit" class="btn btn-success">Modificar</button>
     

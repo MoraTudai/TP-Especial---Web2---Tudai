@@ -26,9 +26,6 @@
                   <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="listCategorie">Categorías</a>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="productsByCategorie">Productos por Categoría</a>
-                  </li>
                   
                   {if !isset($smarty.session.USER_ID)}
                     <li class="nav-item">

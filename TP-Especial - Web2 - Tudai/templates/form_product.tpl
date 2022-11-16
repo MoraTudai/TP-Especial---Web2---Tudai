@@ -13,14 +13,15 @@
         <input name="color" id="color" type="text" class="form-control"/>
         <label>Precio</label>
         <input name="price" id="price" type="text" class="form-control"/>
+        <label>Descripción</label>
+        <input name="description" id="description" type="text" class="form-control"/>
     </div>        
     <div class="form-group">
         <label>Categoría</label>
             <select name="id_categorie_fk" id="id_categorie_fk" class="form-control">
-            <option> -- Seleccione -- </option>
-            <option value = "1">Pinturas</option>
-            <option value = "2">Preparación</option>
-            <option value = "3">Protección</option>
+            {foreach from = $categorias item = $categoria}
+                <option value="{$categoria->id_categorie}">{$categoria->nombre}</option>
+            {/foreach}
             </select>
     </div>
     
