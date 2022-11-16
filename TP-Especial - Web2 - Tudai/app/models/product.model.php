@@ -61,8 +61,7 @@ class ProductModel {
 
     public function editProduct($name_product, $size, $color, $price, $id_categorie_fk, $description, $id) {
         $editarproductos = $this->db->prepare("UPDATE products SET name_product = ?, size = ?, color = ?, price = ?, id_categorie_fk = ?, description = ? WHERE id_product=?");
-        //('UPDATE products SET name_product=?, size=?, color=?, price=?, id_categorie_fk=? WHERE id_product = ?');
-        $editarproductos->execute([$id, $name_product, $size, $color, $price, $id_categorie_fk, $description]); //nombre-de-la-columna = valor[, nombre-de-la-columna=valor]
+        $editarproductos->execute([$name_product, $size, $color, $price, $id_categorie_fk, $description, $id]); //nombre-de-la-columna = valor[, nombre-de-la-columna=valor]
         //var_dump($query->errorInfo()); // y eliminar la redireccion
         return $editarproductos;
     }
@@ -76,4 +75,3 @@ class ProductModel {
 
    
 }
-

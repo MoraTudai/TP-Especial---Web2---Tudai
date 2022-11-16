@@ -23,18 +23,44 @@ class CategorieModel {
         return $categorias;
     }
 
+    function getProductsByCategorie($id){
+        $query = $this->db->prepare('SELECT * FROM products WHERE id_categorie=?');
+        $query->execute([$id]);//SELECT products.*, categories.nombre as categoria FROM products JOIN categories ON products.id_categorie_fk = categories.id_categorie WHERE id_product=?;
+
+        // 3. obtengo los resultados
+        $productoPorCategoria = $query->fetchAll(PDO::FETCH_OBJ); // devuelve un arreglo de objetos
+        
+        return $productoPorCategoria;
+    }
+    
     /*Inserta un producto en la base de datos*/
     function insertCategorie($nombre) {
         $query = $this->db->prepare ("INSERT INTO categories (nombre) VALUES (?)");
-        $query->execute([$nombre]);//INSERT INTO `categories`(`nombre`) VALUES ('A la tiza2')
+        $query->execute([$nombre]);//INSERT INTO `categories`(`nombre`) VALUES ('nueva categoria')
                
         return $this->db->lastInsertId();
     }
 
-    public function editCategorie($id_categorie, $nombre) {
+    /*Devuelve el producto identificado por su ID*/
+    function categorieToModify($id) {
+        // 1. abro conexión a la DB
+        // ya esta abierta por el constructor de la clase
+
+        // 2. ejecuto la sentencia (2 subpasos)
+        $query = $this->db->prepare('SELECT * FROM categories WHERE id_categorie=?');
+                                    //SELECT * FROM `categories` WHERE 1
+        $query->execute([$id]);//SELECT products.*, categories.nombre as categoria FROM products JOIN categories ON products.id_categorie_fk = categories.id_categorie WHERE id_product=?;
+
+        // 3. obtengo los resultados
+        $categoriaAModificar = $query->fetchAll(PDO::FETCH_OBJ); // devuelve un arreglo de objetos
+        
+        return $categoriaAModificar;
+
+    }
+
+    public function editCategorie($nombre, $id) {
         $editarcategorias = $this->db->prepare("UPDATE categories SET nombre=? WHERE id_categorie = ?");
-        //("UPDATE `products` SET `name_product`='?',`size`='?',`color`='?',`price`='?',`id_categorie_fk`='?' WHERE 'id_product`='?'");
-        $editarcategorias->execute([$id_categorie, $nombre]); //nombre-de-la-columna = valor[, nombre-de-la-columna=valor]
+        $editarcategorias->execute([$nombre, $id]);
         //var_dump($query->errorInfo()); // y eliminar la redireccion
         return $editarcategorias;
     }
