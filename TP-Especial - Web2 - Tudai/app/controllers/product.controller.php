@@ -66,7 +66,9 @@ class ProductController {
     //edición de productos en 2 pasos
     //1° paso
     function showEdit($id) {
+
         $this->authHelper->checkLoggedIn();
+
         $productoAModificar = $this->model->productToModify($id);
         $categorias = $this->categorieModel->getAllCategories();
         $this->view->showEdit($productoAModificar, $categorias);
@@ -97,7 +99,9 @@ class ProductController {
     }
 
     function deleteProduct($id_product) {
+
         $this->authHelper->checkLoggedIn();
+
         $this->model->deleteProduct($id_product);
         header("Location: " . BASE_URL);
     }

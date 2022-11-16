@@ -1,17 +1,20 @@
 <?php
 
 require_once './app/models/categorie.model.php';
+require_once './app/models/product.model.php';
 require_once './app/views/categorie.view.php';
 require_once './app/helpers/auth.helper.php';
 
 
 class CategorieController {
     private $model;
+    private $productModel;
     private $view;
     private $authHelper;
     
     public function __construct() {
         $this->model = new CategorieModel();
+        $this->productModel = new ProductModel();
         $this->view = new CategorieView();
         $this->authHelper = new AuthHelper();
         
@@ -23,6 +26,12 @@ class CategorieController {
     public function showCategories() {
         $categorias = $this->model->getAllCategories();
         $this->view->showCategories($categorias);
+    }
+
+    public function showProductsByCategorie($id) {
+        $productoPorCategoria = $this->model->getProductsByCategorie($id);
+        $productos = $this->productModel->getAllProducts();
+        $this->view->showProductsByCategorie($productoPorCategoria, $productos);
     }
 
     //----------------------------------------------------------
@@ -44,14 +53,17 @@ class CategorieController {
 
         $this->model->insertCategorie($nombre);
 
-        header("Location: " . BASE_URL . "categorieTable.tpl"); 
+        header("Location: " . BASE_URL); 
     }
 
     //edición de productos en 2 pasos
     //1° paso
-    function showEditCategorie($id_categorie) {
+    function showEditCategorie($id) {
+
         $this->authHelper->checkLoggedIn();
-        $this->view->showEditCategorie($id_categorie);
+        
+        $categoriaAModificar = $this->model->categorieToModify($id);
+        $this->view->showEditCategorie($categoriaAModificar);
         
     }
     //2° paso
@@ -60,7 +72,7 @@ class CategorieController {
         // validar entrada de datos
         $nombre = $_POST['nombre'];
        
-        $editarcategorias = $this->model->editCategorie($id, $nombre);
+        $editarcategorias = $this->model->editCategorie($nombre, $id);
         $categorias = $this->model->getAllCategories();
 
         $this->view->printEditCategorie($editarcategorias, $categorias);
@@ -68,9 +80,10 @@ class CategorieController {
 
 
     function deleteCategorie($id_categorie) {
+
         $this->authHelper->checkLoggedIn();
+
         $this->model->deleteCategorie($id_categorie);
-        header("Location: " . BASE_URL . "categorieTable.tpl");    }
+        header("Location: " . BASE_URL);    }
 
 }
-
