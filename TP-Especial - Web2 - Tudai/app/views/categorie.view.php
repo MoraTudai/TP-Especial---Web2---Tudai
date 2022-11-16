@@ -8,23 +8,35 @@ class CategorieView {
         $this->smarty = new Smarty(); // inicializo Smarty
     }
 
-    function showCategories($categorias) {
+    function showCategories($categorias/*, $productos*/) {
+        
         // asigno variables al tpl smarty
-       
-       $this->smarty->assign('count', count($categorias));
-       $this->smarty->assign('categorias', $categorias);
+        $this->smarty->assign('count', count($categorias));
+        $this->smarty->assign('categorias', $categorias);
+        /*$this->smarty->assign('productos', $productos);*/
 
         // mostrar el tpl
         $this->smarty->display('categorieTable.tpl');
     }
 
-    function showEditCategorie($id_categorie) {
+    function showProductsByCategorie($productoPorCategoria, $productos){
         
         // asigno variables al tpl smarty
-       // $this->smarty->assign('count', count($productos)); 
-       $this->smarty->assign('id_categorie', $id_categorie);
+        $this->smarty->assign('count', count($productoPorCategoria));
+        $this->smarty->assign('$productoPorCategoria', $productoPorCategoria);
+        $this->smarty->assign('productos', $productos);
 
         // mostrar el tpl
+        $this->smarty->display('productsByCategorie.tpl');    
+    }
+
+    function showEditCategorie($categoriaAModificar){
+        
+        // asigno variables al tpl smarty
+       $this->smarty->assign('categoriaAModificar', $categoriaAModificar);
+
+        // mostrar el tpl
+        $this->smarty->display('categorie_to_modify.tpl');
         $this->smarty->display('form_edit_categorie.tpl');
     }
 
@@ -33,7 +45,7 @@ class CategorieView {
         $this->smarty->assign('count', count($categorias));
         $this->smarty->assign('editarcategorias', $editarcategorias);
         $this->smarty->assign('categorias', $categorias);
-        
+                
         // mostrar el tpl
         $this->smarty->display('categorieTable.tpl');
     }

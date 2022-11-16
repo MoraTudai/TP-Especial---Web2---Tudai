@@ -33,11 +33,6 @@ class ProductView {
         // asigno variables al tpl smarty
         $this->smarty->assign('productoAModificar', $productoAModificar);
         $this->smarty->assign('categorias', $categorias);
-    //    $this->smarty->assign('name_product', $name_product);
-      //  $this->smarty->assign('size', $size);
-        //$this->smarty->assign('color', $color);
-        //$this->smarty->assign('price', $price);
-        //$this->smarty->assign('id_categorie_fk', $id_categorie_fk);
 
         // mostrar el tpl
         $this->smarty->display('product_to_modify.tpl');
